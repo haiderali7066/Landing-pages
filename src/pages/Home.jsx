@@ -1,218 +1,542 @@
-import React from 'react'
-import { ArrowRight, CheckCircle, BarChart, Zap } from "lucide-react";
+"use client";
 
-const Home = () => {
+import { useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, CheckCircle, BarChart, Zap, Menu, X } from "lucide-react";
+
+export default function FuturisticDarkLandingPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
+
+  useEffect(() => {
+    const handleResize = () => setIsMenuOpen(false);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const fadeInUp = {
+    initial: { opacity: 0, y: 60 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+  };
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
-        <div className="flex items-center justify-center">
-          <img
-            src="/img/img6.png"
-            width={32}
-            height={32}
-            alt="WorkflowPro logo"
-            className="h-8 w-8"
-          />
-          <span className="ml-2 text-lg font-bold">WorkflowPro</span>
-        </div>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <a
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#features"
-          >
-            Features
-          </a>
-          <a
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#testimonials"
-          >
-            Testimonials
-          </a>
-          <a
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#cta"
-          >
-            Get Started
-          </a>
+    <div className="flex flex-col min-h-screen bg-gray-900 text-gray-100">
+      <header className="sticky top-0 z-50 bg-gray-800 border-b border-cyan-500/20">
+        <nav className="container mx-auto px-6 py-3">
+          <div className="flex justify-between items-center">
+            <div className="text-2xl font-bold text-cyan-400">WorkflowPro</div>
+            <div className="hidden md:flex space-x-6">
+              <a
+                href="#features"
+                className="text-gray-300 hover:text-cyan-400 transition duration-300"
+              >
+                Features
+              </a>
+              <a
+                href="#testimonials"
+                className="text-gray-300 hover:text-cyan-400 transition duration-300"
+              >
+                Testimonials
+              </a>
+              <a
+                href="#pricing"
+                className="text-gray-300 hover:text-cyan-400 transition duration-300"
+              >
+                Pricing
+              </a>
+            </div>
+            <button className="hidden md:block bg-cyan-500 text-gray-900 px-6 py-2 rounded-full hover:bg-cyan-400 transition duration-300">
+              Get Started
+            </button>
+            <button
+              className="md:hidden text-gray-300"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X /> : <Menu />}
+            </button>
+          </div>
+          {isMenuOpen && (
+            <div className="mt-4 md:hidden">
+              <a
+                href="#features"
+                className="block py-2 text-gray-300 hover:text-cyan-400 transition duration-300"
+              >
+                Features
+              </a>
+              <a
+                href="#testimonials"
+                className="block py-2 text-gray-300 hover:text-cyan-400 transition duration-300"
+              >
+                Testimonials
+              </a>
+              <a
+                href="#pricing"
+                className="block py-2 text-gray-300 hover:text-cyan-400 transition duration-300"
+              >
+                Pricing
+              </a>
+              <button className="mt-4 w-full bg-cyan-500 text-gray-900 px-6 py-2 rounded-full hover:bg-cyan-400 transition duration-300">
+                Get Started
+              </button>
+            </div>
+          )}
         </nav>
       </header>
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_550px]">
-              <div className="flex flex-col justify-center space-y-4">
-                <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                    Automate Your Workflows, Amplify Your Business
-                  </h1>
-                  <p className="max-w-[600px] text-zinc-500 md:text-xl dark:text-zinc-400">
-                    Streamline operations, boost productivity, and grow your
-                    small business with our intelligent automation platform.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <a
-                    className="inline-flex h-10 items-center justify-center rounded-md bg-orange-600 px-8 text-sm font-medium text-zinc-50 shadow transition-colors hover:bg-zinc-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90 dark:focus-visible:ring-zinc-300"
-                    href="#"
-                  >
-                    Start Free Trial
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </a>
-                  <a
-                    className="inline-flex h-10 items-center justify-center rounded-md border border-zinc-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:focus-visible:ring-zinc-300"
-                    href="#"
-                  >
-                    Book a Demo
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center justify-center">
-                <img
-                  src="/img/img5.jfif"
-                  width={600}
-                  height={400}
-                  alt="WorkflowPro Dashboard"
-                  className="rounded-lg object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-        <section
-          id="features"
-          className="w-full py-12 md:py-24 lg:py-32 bg-zinc-50 dark:bg-zinc-900"
-        >
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">
-              Key Features
-            </h2>
-            <div className="grid gap-6 lg:grid-cols-3 lg:gap-12">
-              <div className="flex flex-col items-center text-center space-y-4">
-                <CheckCircle className="h-12 w-12 text-green-500" />
-                <h3 className="text-xl font-bold">Smart Task Management</h3>
-                <p className="text-zinc-500 dark:text-zinc-400">
-                  Automatically assign and track tasks across your team for
-                  seamless collaboration.
-                </p>
-              </div>
-              <div className="flex flex-col items-center text-center space-y-4">
-                <BarChart className="h-12 w-12 text-blue-500" />
-                <h3 className="text-xl font-bold">Insightful Analytics</h3>
-                <p className="text-zinc-500 dark:text-zinc-400">
-                  Gain valuable insights with real-time data visualization and
-                  custom reports.
-                </p>
-              </div>
-              <div className="flex flex-col items-center text-center space-y-4">
-                <Zap className="h-12 w-12 text-yellow-500" />
-                <h3 className="text-xl font-bold">Automated Workflows</h3>
-                <p className="text-zinc-500 dark:text-zinc-400">
-                  Create custom workflows that automate repetitive tasks and
-                  save hours every week.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">
-              What Our Customers Say
-            </h2>
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
-              <div className="flex flex-col justify-center space-y-4 p-6 bg-zinc-50 dark:bg-zinc-900 rounded-lg">
-                <p className="text-xl italic">
-                  "WorkflowPro has transformed how we manage our projects. It's
-                  intuitive, powerful, and has saved us countless hours."
-                </p>
-                <div className="flex items-center space-x-4">
-                  <img
-                    src="/img/img7.jfif"
-                    width={40}
-                    height={40}
-                    alt="Sarah Johnson"
-                    className="rounded-full"
-                  />
-                  <div>
-                    <p className="font-semibold">Sarah Johnson</p>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                      CEO, TechStart Inc.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col justify-center space-y-4 p-6 bg-zinc-50 dark:bg-zinc-900 rounded-lg">
-                <p className="text-xl italic">
-                  "The automation features have been a game-changer for our
-                  small team. We're now able to compete with much larger
-                  companies."
-                </p>
-                <div className="flex items-center space-x-4">
-                  <img
-                    src="/img/img7.jfif"
-                    width={40}
-                    height={40}
-                    alt="Michael Chen"
-                    className="rounded-full"
-                  />
-                  <div>
-                    <p className="font-semibold">Michael Chen</p>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                      Founder, GrowFast Solutions
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section
-          id="cta"
-          className="w-full py-12 md:py-24 lg:py-32 bg-zinc-900 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-900"
-        >
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                Ready to Supercharge Your Business?
-              </h2>
-              <p className="max-w-[600px] text-zinc-200 md:text-xl dark:text-zinc-700">
-                Join thousands of small businesses already using WorkflowPro to
-                automate their operations and boost productivity.
+
+      <main>
+        <section className="relative h-screen flex items-center">
+          <motion.div
+            className="absolute inset-0 z-0"
+            style={{ opacity, scale }}
+          >
+            <video
+              autoPlay
+              loop
+              muted
+              className="object-cover w-full h-full opacity-30"
+            >
+              <source src="/placeholder.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </motion.div>
+          <div className="container mx-auto px-6 relative z-10">
+            <motion.div
+              className="max-w-3xl"
+              initial="initial"
+              animate="animate"
+              variants={fadeInUp}
+            >
+              <h1 className="text-5xl md:text-6xl font-bold text-cyan-400 mb-6">
+                The Future of Workflow
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-300 mb-8">
+                Revolutionize your business with AI-powered automation and
+                cutting-edge analytics.
               </p>
-              <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <a
-                  className="inline-flex h-10 items-center justify-center rounded-md bg-zinc-50 px-8 text-sm font-medium text-zinc-900 shadow transition-colors hover:bg-zinc-50/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-zinc-900 dark:text-zinc-50 dark:hover:bg-zinc-900/90 dark:focus-visible:ring-zinc-300"
-                  href="#"
-                >
-                  Start Your Free Trial
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
-                <a
-                  className="inline-flex text-black h-10 items-center justify-center rounded-md border border-zinc-200 bg-orange-600 px-8 text-sm font-medium shadow-sm transition-colors hover:bg-zinc-300 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:focus-visible:ring-zinc-300"
-                  href="#"
-                >
-                  Book a Demo
-                </a>
-              </div>
+              <button className="bg-cyan-500 text-gray-900 px-8 py-3 rounded-full text-lg font-semibold hover:bg-cyan-400 transition duration-300">
+                Start Free Trial
+              </button>
+            </motion.div>
+          </div>
+        </section>
+
+        <section id="features" className="py-20 bg-gray-800">
+          <div className="container mx-auto px-6">
+            <motion.h2
+              className="text-4xl font-bold text-center mb-12 text-cyan-400"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Futuristic Features
+            </motion.h2>
+            <div className="grid md:grid-cols-3 gap-12">
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <div className="bg-cyan-500/20 rounded-full p-6 inline-block mb-4">
+                  <CheckCircle className="w-10 h-10 text-cyan-400" />
+                </div>
+                <h3 className="text-2xl font-semibold mb-4 text-cyan-300">
+                  AI-Powered Automation
+                </h3>
+                <p className="text-gray-400">
+                  Harness the power of artificial intelligence to automate
+                  complex tasks and workflows.
+                </p>
+              </motion.div>
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                <div className="bg-cyan-500/20 rounded-full p-6 inline-block mb-4">
+                  <BarChart className="w-10 h-10 text-cyan-400" />
+                </div>
+                <h3 className="text-2xl font-semibold mb-4 text-cyan-300">
+                  Predictive Analytics
+                </h3>
+                <p className="text-gray-400">
+                  Leverage machine learning to forecast trends and make
+                  data-driven decisions.
+                </p>
+              </motion.div>
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <div className="bg-cyan-500/20 rounded-full p-6 inline-block mb-4">
+                  <Zap className="w-10 h-10 text-cyan-400" />
+                </div>
+                <h3 className="text-2xl font-semibold mb-4 text-cyan-300">
+                  Quantum Integration
+                </h3>
+                <p className="text-gray-400">
+                  Experience lightning-fast integrations with our
+                  quantum-inspired architecture.
+                </p>
+              </motion.div>
             </div>
           </div>
+        </section>
+
+        <section id="testimonials" className="py-20 bg-gray-900">
+          <div className="container mx-auto px-6">
+            <motion.h2
+              className="text-4xl font-bold text-center mb-12 text-cyan-400"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Testimonials from the Future
+            </motion.h2>
+            <div className="grid md:grid-cols-2 gap-12">
+              <motion.div
+                className="bg-gray-800 p-8 rounded-lg border border-cyan-500/20"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <p className="text-gray-300 mb-6">
+                  "WorkflowPro's AI capabilities have propelled our productivity
+                  into the next era. It's like having a team of future
+                  scientists at our fingertips."
+                </p>
+                <div className="flex items-center">
+                  <img
+                    src="/placeholder.svg?height=50&width=50"
+                    alt="Dr. Sarah Quantum"
+                    className="rounded-full w-12 h-12 mr-4"
+                  />
+                  <div>
+                    <h4 className="font-semibold text-cyan-300">
+                      Dr. Sarah Quantum
+                    </h4>
+                    <p className="text-gray-400">CEO, NeuroTech Industries</p>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div
+                className="bg-gray-800 p-8 rounded-lg border border-cyan-500/20"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                <p className="text-gray-300 mb-6">
+                  "The predictive analytics have given us insights that feel
+                  like glimpses into the future. We're now always steps ahead of
+                  market trends."
+                </p>
+                <div className="flex items-center">
+                  <img
+                    src="/placeholder.svg?height=50&width=50"
+                    alt="Zara Nanotech"
+                    className="rounded-full w-12 h-12 mr-4"
+                  />
+                  <div>
+                    <h4 className="font-semibold text-cyan-300">
+                      Zara Nanotech
+                    </h4>
+                    <p className="text-gray-400">
+                      Founder, Quantum Leap Solutions
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        <section id="pricing" className="py-20 bg-gray-800">
+          <div className="container mx-auto px-6">
+            <motion.h2
+              className="text-4xl font-bold text-center mb-12 text-cyan-400"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Futuristic Pricing Plans
+            </motion.h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <motion.div
+                className="bg-gray-900 p-8 rounded-lg border border-cyan-500/20"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-2xl font-semibold mb-4 text-cyan-300">
+                  Time Traveler
+                </h3>
+                <p className="text-4xl font-bold mb-6 text-white">
+                  $99
+                  <span className="text-xl font-normal text-gray-400">/mo</span>
+                </p>
+                <ul className="mb-8 space-y-4">
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-cyan-400 mr-2" />
+                    <span className="text-gray-300">Basic AI automation</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-cyan-400 mr-2" />
+                    <span className="text-gray-300">Standard analytics</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-cyan-400 mr-2" />
+                    <span className="text-gray-300">5 team members</span>
+                  </li>
+                </ul>
+                <button className="w-full bg-cyan-500 text-gray-900 py-2 rounded-full hover:bg-cyan-400 transition duration-300">
+                  Start Your Journey
+                </button>
+              </motion.div>
+              <motion.div
+                className="bg-cyan-500 p-8 rounded-lg transform scale-105"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-2xl font-semibold mb-4 text-gray-900">
+                  Quantum Leaper
+                </h3>
+                <p className="text-4xl font-bold mb-6 text-gray-900">
+                  $299
+                  <span className="text-xl font-normal text-gray-700">/mo</span>
+                </p>
+                <ul className="mb-8 space-y-4">
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-gray-900 mr-2" />
+                    <span className="text-gray-900">
+                      Advanced AI automation
+                    </span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-gray-900 mr-2" />
+                    <span className="text-gray-900">Predictive analytics</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-gray-900 mr-2" />
+                    <span className="text-gray-900">
+                      Unlimited team members
+                    </span>
+                  </li>
+                </ul>
+                <button className="w-full bg-gray-900 text-cyan-400 py-2 rounded-full hover:bg-gray-800 transition duration-300">
+                  Quantum Leap Now
+                </button>
+              </motion.div>
+              <motion.div
+                className="bg-gray-900 p-8 rounded-lg border border-cyan-500/20"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-2xl font-semibold mb-4 text-cyan-300">
+                  Galactic Pioneer
+                </h3>
+                <p className="text-4xl font-bold mb-6 text-white">Custom</p>
+                <ul className="mb-8 space-y-4">
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-cyan-400 mr-2" />
+                    <span className="text-gray-300">Quantum integration</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-cyan-400 mr-2" />
+                    <span className="text-gray-300">Custom AI solutions</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-cyan-400 mr-2" />
+                    <span className="text-gray-300">
+                      Dedicated future consultant
+                    </span>
+                  </li>
+                </ul>
+                <button className="w-full bg-cyan-500 text-gray-900 py-2 rounded-full hover:bg-cyan-400 transition duration-300">
+                  Contact Sales
+                </button>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 bg-gray-900 relative overflow-hidden">
+          <div className="container mx-auto px-6 relative z-10">
+            <motion.div
+              className="max-w-3xl mx-auto text-center"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl font-bold mb-6 text-cyan-400">
+                Ready to Revolutionize Your Workflow?
+              </h2>
+              <p className="text-xl mb-8 text-gray-300">
+                Join the ranks of future-forward businesses already using
+                WorkflowPro to redefine productivity.
+              </p>
+              <button className="bg-cyan-500 text-gray-900 px-8 py-3 rounded-full text-lg font-semibold hover:bg-cyan-400 transition duration-300">
+                Begin Your Future Now
+                <ArrowRight className="inline-block ml-2" />
+              </button>
+            </motion.div>
+          </div>
+          <div className="absolute inset-0 bg-cyan-500/10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-900/40 to-gray-900"></div>
         </section>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">
-          © 2024 WorkflowPro. All rights reserved.
-        </p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <a className="text-xs hover:underline underline-offset-4" href="#">
-            Terms of Service
-          </a>
-          <a className="text-xs hover:underline underline-offset-4" href="#">
-            Privacy
-          </a>
-        </nav>
+
+      <footer className="bg-gray-800 text-gray-300 py-12 border-t border-cyan-500/20">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-cyan-400">
+                Product
+              </h3>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-cyan-400 transition duration-300"
+                  >
+                    Features
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-cyan-400 transition duration-300"
+                  >
+                    Pricing
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-cyan-400 transition duration-300"
+                  >
+                    Integrations
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-cyan-400">
+                Company
+              </h3>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-cyan-400 transition duration-300"
+                  >
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-cyan-400 transition duration-300"
+                  >
+                    Blog
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-cyan-400 transition duration-300"
+                  >
+                    Careers
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-cyan-400">
+                Resources
+              </h3>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-cyan-400 transition duration-300"
+                  >
+                    Documentation
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-cyan-400 transition duration-300"
+                  >
+                    Help Center
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-cyan-400 transition duration-300"
+                  >
+                    Tutorials
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-cyan-400">
+                Legal
+              </h3>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-cyan-400 transition duration-300"
+                  >
+                    Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-cyan-400 transition duration-300"
+                  >
+                    Terms of Service
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-cyan-400 transition duration-300"
+                  >
+                    Cookie Policy
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-12 pt-8 border-t border-cyan-500/20 text-center">
+            <p>&copy; 2024 WorkflowPro. Pioneering the future of work.</p>
+          </div>
+        </div>
       </footer>
     </div>
   );
 }
-
-export default Home
