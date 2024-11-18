@@ -31,11 +31,11 @@ export default function AnimatedLandingPage() {
             <div className="flex items-center">
               <a href="#" className="flex-shrink-0">
                 <img
-                  src="/placeholder.svg?height=32&width=32"
+                  src="/img/D1.webp"
                   width={32}
                   height={32}
                   alt="WorkflowPro logo"
-                  className="h-8 w-8"
+                  className="h-8 w-8 rounded"
                 />
               </a>
               <div className="hidden md:block">
