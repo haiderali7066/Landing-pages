@@ -7,7 +7,7 @@ const Home = () => {
       <header className="px-4 lg:px-6 h-14 flex items-center">
         <div className="flex items-center justify-center">
           <img
-            src="/img/img6.png"
+            src="/img6.png"
             width={32}
             height={32}
             alt="WorkflowPro logo"
@@ -68,7 +68,7 @@ const Home = () => {
               </div>
               <div className="flex items-center justify-center">
                 <img
-                  src="/img/img5.jfif"
+                  src="/img5.jfif"
                   width={600}
                   height={400}
                   alt="WorkflowPro Dashboard"
@@ -127,7 +127,7 @@ const Home = () => {
                 </p>
                 <div className="flex items-center space-x-4">
                   <img
-                    src="/img/img7.jfif"
+                    src="/img7.jfif"
                     width={40}
                     height={40}
                     alt="Sarah Johnson"
@@ -149,7 +149,7 @@ const Home = () => {
                 </p>
                 <div className="flex items-center space-x-4">
                   <img
-                    src="/img/img7.jfif"
+                    src="/img7.jfif"
                     width={40}
                     height={40}
                     alt="Michael Chen"
