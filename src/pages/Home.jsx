@@ -7,7 +7,7 @@ const Home = () => {
       <header className="px-4 lg:px-6 h-14 flex items-center">
         <div className="flex items-center justify-center">
           <img
-            src="/img6.png"
+            src="/img6.jfif"
             width={32}
             height={32}
             alt="WorkflowPro logo"
